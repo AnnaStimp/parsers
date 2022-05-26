@@ -3,7 +3,7 @@ import psycopg2
 from bs4 import BeautifulSoup
 import time
 
-from model import host, user, password, db_name, insert_product, insert_price_list, get_product_of_category
+from model import host, user, password, db_name, insert_product, insert_price_list
 
 HEADERS = {'user-agent': 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Mobile Safari/537.36',
            'accept': '*/*'}
