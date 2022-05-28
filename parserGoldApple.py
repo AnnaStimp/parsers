@@ -42,9 +42,9 @@ for category in categoryId:
     r = requests.get(url, headers=HEADERS)
     result_of_req = json.loads(r.text)
 
-    count = 0
-    while count != 1:
-    # while 'products' in result_of_req.keys():
+    # count = 0
+    # while count != 1:
+    while 'products' in result_of_req.keys():
         products = result_of_req['products']
 
         for i in products:
@@ -59,7 +59,7 @@ for category in categoryId:
                     db.commit()
         
         page+=1
-        count+=1
+        # count+=1
         time.sleep(5)
         url = 'https://goldapple.ru/web_scripts/discover/category/products?cat={}&page={}'.format(cat, page)
         r = requests.get(url, headers=HEADERS)
