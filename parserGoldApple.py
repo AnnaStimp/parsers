@@ -43,7 +43,7 @@ for category in categoryId:
     result_of_req = json.loads(r.text)
 
     count = 0
-    while count != 2:
+    while count != 1:
     # while 'products' in result_of_req.keys():
         products = result_of_req['products']
 

@@ -93,11 +93,13 @@ def add_to_db(products, cat_id):
 for category in categoryId:
     page = 1
     cat = categoryId[category]['req']
-
-    while True:
+    count = 0
+    while count != 2:
+    # while True:
         time.sleep(5)
         res = parser(cat, page)
         if res == 404:
             break
         add_to_db(res, categoryId[category]['db'])
         page += 1
+        count+=1
