@@ -28,7 +28,6 @@ def get_price(url):
 
     if 'goldapple' in url:
         response = requests.get(url, headers=HEADERS)
-        print(response)
         soup = BeautifulSoup(response.text, 'html.parser')
         item = soup.find('span', class_='special-price')
         return item.find('meta').get('content')
@@ -39,6 +38,7 @@ with  db.cursor() as cursor:
     for i in price_list:
         print(i)
         price = get_price(i[2])
+        print(price)
         time.sleep(2)
         if price:
             response = update_price_list(cursor, i[0], i[1], int(price))
