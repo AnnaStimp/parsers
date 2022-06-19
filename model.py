@@ -23,3 +23,18 @@ def insert_price_list (cursor, id_product, id_store, link_product, price):
   )
 
   return cursor.statusmessage
+
+def get_price_list (cursor):
+  cursor.execute(
+    """SELECT * FROM price_list;"""
+  )
+
+  return cursor.fetchall()
+
+def update_price_list (cursor, id_product, id_store, price):
+  cursor.execute(
+    """UPDATE price_list SET price={}
+      WHERE id_product={} AND id_store={};""".format(price, id_product, id_store)
+  )
+
+  return cursor.statusmessage
