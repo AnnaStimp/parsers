@@ -28,6 +28,7 @@ def get_price(url):
 
     if 'goldapple' in url:
         response = requests.get(url, headers=HEADERS)
+        print(response)
         soup = BeautifulSoup(response.text, 'html.parser')
         item = soup.find('span', class_='special-price')
         return item.find('meta').get('content')
