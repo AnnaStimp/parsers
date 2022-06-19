@@ -36,6 +36,7 @@ def get_price(url):
 with  db.cursor() as cursor:
     price_list = get_price_list(cursor)
     for i in price_list:
+        print(i)
         price = get_price(i[2])
         time.sleep(2)
         if price:
