@@ -38,3 +38,10 @@ def update_price_list (cursor, id_product, id_store, price):
   )
 
   return cursor.statusmessage
+
+def delete_from_price_list (cursor, id_product):
+  cursor.execute(
+    """DELETE FROM product CASCADE WHERE id_product = {};""".format(id_product)
+  )
+
+  return cursor.statusmessage

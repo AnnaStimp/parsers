@@ -3,7 +3,7 @@ import requests
 from bs4 import BeautifulSoup
 import time
 
-from model import host, user, password, db_name, get_price_list, update_price_list
+from model import host, user, password, db_name, get_price_list, update_price_list, delete_from_price_list
 
 HEADERS = {'user-agent': 'Mozilla/5.0 (Linux; Android 6.0; Nexus 5 Build/MRA58N) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Mobile Safari/537.36',
            'accept': '*/*'}
@@ -24,14 +24,19 @@ def get_price(url):
         response = requests.get(url, headers=HEADERS)
         soup = BeautifulSoup(response.text, 'html.parser')
         item = soup.find('span', class_='price__item price__item--current')
-        return item.find('span', class_='price_value').get_text()
+        if not item:
+            return 'delete'
+        else:
+            return item.find('span', class_='price_value').get_text()
 
     if 'goldapple' in url:
         response = requests.get(url, headers=HEADERS)
         soup = BeautifulSoup(response.text, 'html.parser')
         item = soup.find('span', class_='special-price')
-        print(item)
-        return item.find('meta').get('content')
+        if not item:
+            return 'delete'
+        else:
+            return item.find('meta').get('content')
 
 
 with  db.cursor() as cursor:
@@ -39,7 +44,12 @@ with  db.cursor() as cursor:
     for i in price_list:
         print(i)
         price = get_price(i[2])
-        print(price)
+        
+        if price == 'delete':
+            response = delete_from_price_list(cursor, i[0])
+            db.commit()
+            continue
+
         time.sleep(2)
         if price:
             response = update_price_list(cursor, i[0], i[1], int(price))
