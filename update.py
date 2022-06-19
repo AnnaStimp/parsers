@@ -30,6 +30,7 @@ def get_price(url):
         response = requests.get(url, headers=HEADERS)
         soup = BeautifulSoup(response.text, 'html.parser')
         item = soup.find('span', class_='special-price')
+        print(item)
         return item.find('meta').get('content')
 
 
